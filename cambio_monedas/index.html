@@ -1,0 +1,178 @@
+
+
+<!-- En reparación -->
+
+
+
+<!-- Conversor de Monedas
+Preview
+Code -->
+
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Monedas</title>
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            background-color: white;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #results {
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            display: none;
+        }
+
+        .results-header {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .rate-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            align-items: center;
+        }
+
+        .rate-item:last-child {
+            border-bottom: none;
+        }
+
+        .update-time {
+            margin-top: 20px;
+            text-align: right;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .rate-item {
+                grid-template-columns: 1fr auto;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Conversor de Monedas</h1>
+        
+        <div class="form-group">
+
+            <label for="baseCurrency">Seleccione la moneda base:</label>
+
+            <select id="baseCurrency"></select>
+
+        </div>
+
+        <button onclick="convertCurrency()">Obtener Tasas de Cambio</button>
+
+        <div id="results">
+
+            <div class="results-header">
+
+                <h2>Tasas de cambio</h2>
+
+                <p id="baseAmount"></p>
+
+            </div>
+
+            <div id="ratesList"></div>
+
+            <div class="update-time" id="updateTime"></div>
+
+        </div>
+
+    </div>
+
+   
+   <script src="cambio_singular.js">
+
+   </script>
+    
+</body>
+
+</html>
