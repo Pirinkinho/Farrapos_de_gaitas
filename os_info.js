@@ -5,6 +5,9 @@ const os = require('os')
 
 const { exec } = require('child_process');
 
+const si = require('systeminformation');
+
+
 function getSystemInfo() {
 
 console.log("\nInformación del sistema operativo:");
@@ -68,6 +71,24 @@ exec('hostnamectl', (error, stdout, stderr) => {
   console.log('\nSalida de hostnamectl:\n', stdout);
 });
 }
+
+// Obtener información de la GPU
+si.graphics().then(data => {
+  console.log("\nInformación de la tarjeta gráfica:");
+  console.log("-------------------");
+  data.controllers.forEach((gpu, index) => {
+      console.log(`GPU ${index + 1}:`);
+      console.log(`- Modelo: ${gpu.model}`);
+      console.log(`- Fabricante: ${gpu.vendor}`);
+      console.log(`- Memoria VRAM: ${gpu.vram || "N/A"} MB`);
+      console.log(`- Resolución: ${gpu.resolutionX}x${gpu.resolutionY}`);
+  });
+}).catch(error => console.error("Error obteniendo información de la GPU:", error));
+
+
+
+
+
 // Exportamos la función
 module.exports = {
   getSystemInfo,
