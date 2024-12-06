@@ -1,4 +1,6 @@
 
+// * Koldo Sanmartín - Lunes 02/12/2022.
+
 // * Este código sirve para convertir la hora informática de milisegundos a formato humano,
 // y viceversa, de formato humano a milisegundos, a través de un menú de opciones.
 
@@ -105,7 +107,7 @@ function fechaAHumanReadable() {
             // Si timestampMs es un número válido, se crea un objeto de fecha (Date) usando timestampMs como marca de tiempo en milisegundos.
             // Luego, dateTime.toString() convierte el objeto de fecha a una cadena legible, que se imprime en la terminal.
             const dateTime = new Date(timestampMs);
-            console.log(`\n${bgBlue}${goldenYellow}Fecha y hora: ${dateTime.toString()}${reset}`);
+            console.log(`\n${bgBlue}${goldenYellow}Fecha y hora: ${dateTime.toString()} (Madrid)${reset}`);
         
         // Si el valor introducido no es un número válido (NaN), muestra un mensaje de error indicando que el usuario debe introducir un número válido.
         } else {
@@ -151,9 +153,9 @@ function fechaAMilisegundos() {
 // Esta función es para mostrar el menú principal.
 function mostrarMenu() {
     console.log("\nSeleccione una opción:");
-    console.log("\n1. Convertir fecha en milisegundos a formato legible");
-    console.log("2. Convertir fecha en formato legible a milisegundos");
-    console.log("3. Salir");
+    console.log("\n1. Convertir fecha de milisegundos a formato legible");
+    console.log("\n2. Convertir fecha de formato legible a milisegundos");
+    console.log("\n3. Salir");
 
     rl.question("\nEscriba el número de la opción elegida: ", (opcion) => {
         switch(opcion) {
