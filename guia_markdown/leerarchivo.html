@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertir Markdown a HTML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #indice {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0f7fa;
+            border: 1px solid #006064;
+        }
+        #resultado {
+            margin-top: 20px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            max-height: 80vh;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        a {
+            color: #00796b;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        ul li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Convertir archivo Markdown a HTML</h1>
+
+    <div>
+        <button onclick="cargarArchivo()">Cargar archivo .md</button>
+    </div>
+
+    <div id="indice"></div>
+    <div id="resultado"></div>
+
+    <script>
+        function cargarArchivo() {
+            let input = document.createElement("input");
+            input.type = "file";
+            input.accept = ".md";
+
+            input.onchange = (event) => {
+                let archivo = event.target.files[0];
+                if (archivo) {
+                    let lector = new FileReader();
+                    lector.onload = () => {
+                        const contenido = lector.result;
+                        const { indice, htmlContenido } = convertirMarkdownAHTML(contenido);
+                        document.getElementById("indice").innerHTML = indice;
+                        document.getElementById("resultado").innerHTML = htmlContenido;
+                        agregarDesplazamientoSuave();
+                    };
+                    lector.readAsText(archivo);
+                }
+            };
+
+            input.click();
+        }
+
+        function convertirMarkdownAHTML(markdown) {
+            let indice = "<h2>Índice</h2><ul>";
+            let contadorId = 0;
+
+            // Convertir encabezados y crear índice
+            markdown = markdown.replace(/^(#{1,6}) (.+)$/gm, (match, hashes, texto) => {
+                let nivel = hashes.length;
+                let id = `seccion-${contadorId++}`;
+                indice += `<li style="margin-left:${(nivel - 1) * 20}px"><a href="#${id}">${texto}</a></li>`;
+                return `<h${nivel} id="${id}">${texto}</h${nivel}>`;
+            });
+
+            indice += "</ul>";
+
+            // Convertir Markdown a HTML conservando contenido grande
+            markdown = markdown.replace(/^\s*[-*]\s+(.*)$/gm, '<ul><li>$1</li></ul>');
+            markdown = markdown.replace(/<\/ul><ul>/g, '');
+            markdown = markdown.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            markdown = markdown.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            markdown = markdown.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            markdown = markdown.replace(/!\[([^\]]+)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" />');
+            markdown = markdown.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
+            markdown = markdown.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+
+            return { indice, htmlContenido: markdown };
+        }
+
+        function agregarDesplazamientoSuave() {
+            const enlaces = document.querySelectorAll('#indice a');
+            enlaces.forEach((enlace) => {
+                enlace.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const id = event.target.getAttribute('href').substring(1);
+                    const elemento = document.getElementById(id);
+                    if (elemento) {
+                        elemento.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>

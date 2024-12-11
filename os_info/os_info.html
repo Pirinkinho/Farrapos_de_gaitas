@@ -1,0 +1,51 @@
+
+<!--  Programa para analizar CPU 
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Información del Sistema</title>
+</head>
+<body>
+  <h1>Información del Sistema</h1>
+  <div id="system-info">
+    <button onclick="getSystemInfo()">Cargar Información del Sistema</button>
+    <div id="info"></div>
+  </div>
+
+  <script>
+    async function getSystemInfo() {
+      try {
+        const response = await fetch('/system-info');
+        const data = await response.json();
+        
+        const infoDiv = document.getElementById('info');
+        infoDiv.innerHTML = `
+          <h2>Detalles del Sistema</h2>
+          <p><strong>Plataforma:</strong> ${data.osPlatform}</p>
+          <p><strong>Versión del Sistema:</strong> ${data.osRelease}</p>
+          <p><strong>Arquitectura:</strong> ${data.osArch}</p>
+          <p><strong>CPU's:</strong> ${data.numCPUs}</p>
+          <p><strong>Memoria Total:</strong> ${data.totalMem.toFixed(2)} GB</p>
+          <p><strong>Memoria Libre:</strong> ${data.freeMem.toFixed(2)} GB</p>
+          <p><strong>Uptime:</strong> ${data.uptimeDays.toFixed(2)} días</p>
+          <p><strong>Nombre del Host:</strong> ${data.hostname}</p>
+          
+          <h3>Tarjeta Gráfica</h3>
+          ${data.gpu ? data.gpu.map(gpu => `
+            <p><strong>Modelo:</strong> ${gpu.model}</p>
+            <p><strong>Fabricante:</strong> ${gpu.vendor}</p>
+            <p><strong>Memoria VRAM:</strong> ${gpu.vram ? gpu.vram + ' MB' : 'N/A'}</p>
+            <p><strong>Resolución:</strong> ${gpu.resolutionX}x${gpu.resolutionY}</p>
+          `).join('') : '<p>No se pudo obtener información de la GPU</p>'}
+        `;
+      } catch (error) {
+        console.error('Error al obtener la información del sistema:', error);
+      }
+    }
+  </script>
+</body>
+</html>
