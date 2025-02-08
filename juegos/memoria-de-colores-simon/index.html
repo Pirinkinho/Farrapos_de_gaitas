@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria de Colores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🎨 Memoria de Colores</h1>
+    <p>Observa la secuencia y repítela correctamente.</p>
+    
+    <div class="game-board">
+        <div class="color-btn" id="red" onclick="playerClick('red')"></div>
+        <div class="color-btn" id="blue" onclick="playerClick('blue')"></div>
+        <div class="color-btn" id="green" onclick="playerClick('green')"></div>
+        <div class="color-btn" id="yellow" onclick="playerClick('yellow')"></div>
+    </div>
+
+    <button id="startButton">Iniciar Juego</button>
+    <p id="message"></p>
+
+    <script src="script.js"></script>
+</body>
+</html>

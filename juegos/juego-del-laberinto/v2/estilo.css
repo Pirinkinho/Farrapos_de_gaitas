@@ -1,0 +1,39 @@
+/* estilo.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#juego {
+    display: grid;
+    margin: 0 auto;
+    grid-template-rows: repeat(10, 40px);
+    grid-template-columns: repeat(10, 40px);
+    gap: 2px;
+}
+
+.fila {
+    display: flex;
+}
+
+.celda {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+}
+
+.pared {
+    background-color: #333; /* Color de pared oscuro */
+}
+
+.camino {
+    background-color: #fff; /* Camino claro */
+}
+
+.entrada {
+    background-color: green; /* Color de la entrada */
+}
+
+.salida {
+    background-color: red; /* Color de la salida */
+}

@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-gap: 10px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.carta {
+  width: 100px;
+  height: 100px;
+  background-color: #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Carta volteada (sin estar confirmada como pareja) */
+.carta.flipped {
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Carta emparejada: permanecen visibles, de color rojo */
+.carta.matched {
+  background-color: red;
+  color: white;
+  cursor: default;
+}
